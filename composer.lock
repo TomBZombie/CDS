@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "043750e97e2ffb62578745d75d7797b4",
+    "content-hash": "666ca7788706de1d04cb539194e284e2",
     "packages": [],
     "packages-dev": [
         {
@@ -567,16 +567,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "12.0.2",
+            "version": "12.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "6301fe5c1f5f34192ffd650a87fe055677a32212"
+                "reference": "9912c83b5207ab3730fcadc42992e95bdb02dad8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6301fe5c1f5f34192ffd650a87fe055677a32212",
-                "reference": "6301fe5c1f5f34192ffd650a87fe055677a32212",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9912c83b5207ab3730fcadc42992e95bdb02dad8",
+                "reference": "9912c83b5207ab3730fcadc42992e95bdb02dad8",
                 "shasum": ""
             },
             "require": {
@@ -590,7 +590,7 @@
                 "phar-io/manifest": "^2.0.4",
                 "phar-io/version": "^3.2.1",
                 "php": ">=8.3",
-                "phpunit/php-code-coverage": "^12.0.2",
+                "phpunit/php-code-coverage": "^12.0.0",
                 "phpunit/php-file-iterator": "^6.0.0",
                 "phpunit/php-invoker": "^6.0.0",
                 "phpunit/php-text-template": "^5.0.0",
@@ -644,7 +644,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.0.2"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.0.0"
             },
             "funding": [
                 {
@@ -660,7 +660,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-02-08T09:18:47+00:00"
+            "time": "2025-02-07T05:03:33+00:00"
         },
         {
             "name": "sebastian/cli-parser",
