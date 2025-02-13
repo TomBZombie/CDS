@@ -21,7 +21,7 @@ class Data implements \Transphporm\TSSFunction
         $this->functionSet = $functionSet;
     }
 
-    public function run(array $args, \DomElement $element = null)
+    public function run(array $args, \DomElement $element)
     {
         if ($this->dataKey === "root") {
             $data = $this->data->getData(null, 'data');

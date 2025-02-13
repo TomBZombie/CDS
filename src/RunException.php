@@ -9,7 +9,7 @@ namespace Transphporm;
 
 class RunException extends \Exception
 {
-    public function __construct($operationType, $operationName, \Exception $previous = null)
+    public function __construct($operationType, $operationName, \Exception $previous)
     {
         $message = 'TSS Error: Problem carrying out ' . $operationType . ' "' . $operationName . '"';
 

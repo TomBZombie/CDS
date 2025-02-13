@@ -26,7 +26,7 @@ class Template implements \Transphporm\TSSFunction
         return isset($array[$index]) ? $array[$index] : null;
     }
 
-    public function run(array $args, \DomElement $element = null)
+    public function run(array $args, \DomElement $element)
     {
         $selector = $this->readArray($args, 1);
         $tss = $this->readArray($args, 2);

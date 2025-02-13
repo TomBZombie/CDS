@@ -16,7 +16,7 @@ class Json implements \Transphporm\TSSFunction
         $this->filePath = $filePath;
     }
 
-    public function run(array $args, \DomElement $element = null)
+    public function run(array $args, \DomElement $element)
     {
         $json = $args[0];
 

@@ -17,38 +17,38 @@ class Tokens implements \Iterator, \Countable
         $this->tokens = $tokens;
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->tokens);
     }
 
     // Iterator Functions
-    public function current()
+    public function current(): mixed
     {
         return $this->tokens[$this->iterator];
     }
 
-    public function key()
+    public function key(): string
     {
         return $this->iterator;
     }
 
-    public function next()
+    public function next(): void
     {
         ++$this->iterator;
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->tokens[$this->iterator]);
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->iterator = 0;
     }
 
-    public function add($token)
+    public function add($token): void
     {
         if ($token instanceof Tokens) {
             $this->tokens = array_merge($this->tokens, $token->tokens);
@@ -58,7 +58,7 @@ class Tokens implements \Iterator, \Countable
     }
 
 
-    public function end()
+    public function end(): mixed
     {
         return end($this->tokens);
     }
