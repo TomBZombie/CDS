@@ -4,17 +4,23 @@
  * @copyright       2017 Tom Butler <tom@r.je> | https://r.je/                      *
  * @license         http://www.opensource.org/licenses/bsd-license.php  BSD License *
  * @version         1.2                                                             */
+
 namespace Transphporm\Formatter;
-class StringFormatter {
-	public function uppercase($val) {
-		return strtoupper($val);
-	}
 
-	public function lowercase($val) {
-		return strtolower($val);
-	}
+class StringFormatter
+{
+    public function uppercase($val)
+    {
+        return strtoupper($val);
+    }
 
-	public function titlecase($val) {
-		return ucwords($val);
-	}
+    public function lowercase($val)
+    {
+        return strtolower($val);
+    }
+
+    public function titlecase($val)
+    {
+        return ucwords($val);
+    }
 }

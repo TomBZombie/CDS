@@ -4,29 +4,36 @@
  * @copyright       2017 Tom Butler <tom@r.je> | https://r.je/                      *
  * @license         http://www.opensource.org/licenses/bsd-license.php  BSD License *
  * @version         1.2                                                             */
+
 namespace Transphporm\Property\ContentPseudo;
-class BeforeAfter implements \Transphporm\Property\ContentPseudo {
-	private $insertLocation;
-	private $content;
 
-	public function __construct($insertLocation, \Transphporm\Property\Content $content) {
-		$this->insertLocation = $insertLocation;
-		$this->content = $content;
-	}
+class BeforeAfter implements \Transphporm\Property\ContentPseudo
+{
+    private $insertLocation;
+    private $content;
 
-	public function run($value, $pseudoArgs, $element, \Transphporm\Hook\PseudoMatcher $pseudoMatcher) {
-		$currentFirst = $element->firstChild;
+    public function __construct($insertLocation, \Transphporm\Property\Content $content)
+    {
+        $this->insertLocation = $insertLocation;
+        $this->content = $content;
+    }
 
-		foreach ($this->content->getNode($value, $element->ownerDocument) as $node) {
-			$this->{$this->insertLocation}($node, $element, $currentFirst);
-		}
-	}
+    public function run($value, $pseudoArgs, $element, \Transphporm\Hook\PseudoMatcher $pseudoMatcher)
+    {
+        $currentFirst = $element->firstChild;
 
-	private function before($node, $element, $currentFirst) {		
-		$element->insertBefore($node, $currentFirst);
-	}
+        foreach ($this->content->getNode($value, $element->ownerDocument) as $node) {
+            $this->{$this->insertLocation}($node, $element, $currentFirst);
+        }
+    }
 
-	private function after($node, $element, $currentFirst) {
-		$element->appendChild($node);
-	}
+    private function before($node, $element, $currentFirst)
+    {
+        $element->insertBefore($node, $currentFirst);
+    }
+
+    private function after($node, $element, $currentFirst)
+    {
+        $element->appendChild($node);
+    }
 }

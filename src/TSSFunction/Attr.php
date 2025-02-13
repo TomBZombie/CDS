@@ -4,10 +4,14 @@
  * @copyright       2017 Tom Butler <tom@r.je> | https://r.je/                      *
  * @license         http://www.opensource.org/licenses/bsd-license.php  BSD License *
  * @version         1.2                                                             */
+
 namespace Transphporm\TSSFunction;
+
 /* Handles attr() function in the TSS stlyesheet */
-class Attr implements \Transphporm\TSSFunction {
-	public function run(array $args, \DomElement $element) {
-		return $element->getAttribute(trim($args[0]));
-	}
+class Attr implements \Transphporm\TSSFunction
+{
+    public function run(array $args, \DomElement $element)
+    {
+        return $element->getAttribute(trim($args[0]));
+    }
 }

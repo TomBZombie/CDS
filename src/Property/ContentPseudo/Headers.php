@@ -4,15 +4,20 @@
  * @copyright       2017 Tom Butler <tom@r.je> | https://r.je/                      *
  * @license         http://www.opensource.org/licenses/bsd-license.php  BSD License *
  * @version         1.2                                                             */
+
 namespace Transphporm\Property\ContentPseudo;
-class Headers implements \Transphporm\Property\ContentPseudo {
-	private $headers;
 
-	public function __construct(&$headers) {
-		$this->headers = &$headers;
-	}
+class Headers implements \Transphporm\Property\ContentPseudo
+{
+    private $headers;
 
-	public function run($value, $pseudoArgs, $element, \Transphporm\Hook\PseudoMatcher $pseudoMatcher) {
-		$this->headers[] = [$pseudoArgs, implode('', $value)];
-	}
+    public function __construct(&$headers)
+    {
+        $this->headers = &$headers;
+    }
+
+    public function run($value, $pseudoArgs, $element, \Transphporm\Hook\PseudoMatcher $pseudoMatcher)
+    {
+        $this->headers[] = [$pseudoArgs, implode('', $value)];
+    }
 }

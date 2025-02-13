@@ -4,31 +4,41 @@
  * @copyright       2017 Tom Butler <tom@r.je> | https://r.je/                      *
  * @license         http://www.opensource.org/licenses/bsd-license.php  BSD License *
  * @version         1.2                                                             */
+
 namespace Transphporm\TSSFunction;
-class Json implements \Transphporm\TSSFunction {
-	private $filePath;
 
-	public function __construct(\Transphporm\FilePath $filePath) {
-		$this->filePath = $filePath;
-	}
+class Json implements \Transphporm\TSSFunction
+{
+    private $filePath;
 
-	public function run(array $args, \DomElement $element = null) {
-		$json = $args[0];
+    public function __construct(\Transphporm\FilePath $filePath)
+    {
+        $this->filePath = $filePath;
+    }
 
-		if ($this->isJsonFile($json)) {
-			$path = $this->filePath->getFilePath($json);
-			if (!file_exists($path)) throw new \Exception('File does not exist at: ' . $path);
-			$json = file_get_contents($path);
-		}
+    public function run(array $args, \DomElement $element = null)
+    {
+        $json = $args[0];
 
-		$map = json_decode($json, true);
+        if ($this->isJsonFile($json)) {
+            $path = $this->filePath->getFilePath($json);
+            if (!file_exists($path)) {
+                throw new \Exception('File does not exist at: ' . $path);
+            }
+            $json = file_get_contents($path);
+        }
 
-		if (!is_array($map)) throw new \Exception('Could not decode json: ' . json_last_error_msg());
+        $map = json_decode($json, true);
 
-		return $map;
-	}
+        if (!is_array($map)) {
+            throw new \Exception('Could not decode json: ' . json_last_error_msg());
+        }
 
-	private function isJsonFile($json) {
-		return trim($json)[0] != '{' && trim($json)[0] != '[';
-	}
+        return $map;
+    }
+
+    private function isJsonFile($json)
+    {
+        return trim($json)[0] != '{' && trim($json)[0] != '[';
+    }
 }

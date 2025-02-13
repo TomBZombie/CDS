@@ -8,13 +8,15 @@
 
 //Add support for PHPUnit 5 and 6
 if (!class_exists('PHPUnit_Framework_TestCase')) {
-	class PHPUnit_Framework_TestCase extends \PHPUnit\Framework\TestCase {}
+    class PHPUnit_Framework_TestCase extends \PHPUnit\Framework\TestCase
+    {
+    }
 }
 
-spl_autoload_register(function($class) {
-	$parts = explode('\\', ltrim($class, '\\'));
-	if ($parts[0] === 'Transphporm') {
-		array_shift($parts);
-		require_once 'src/' . implode(DIRECTORY_SEPARATOR, $parts) . '.php';
-	}
+spl_autoload_register(function ($class) {
+    $parts = explode('\\', ltrim($class, '\\'));
+    if ($parts[0] === 'Transphporm') {
+        array_shift($parts);
+        require_once 'src/' . implode(DIRECTORY_SEPARATOR, $parts) . '.php';
+    }
 });

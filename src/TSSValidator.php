@@ -4,47 +4,68 @@
  * @copyright       2017 Tom Butler <tom@r.je> | https://r.je/                      *
  * @license         http://www.opensource.org/licenses/bsd-license.php  BSD License *
  * @version         1.2                                                             */
+
 namespace Transphporm;
+
 use Transphporm\Parser\Tokenizer;
-class TSSValidator {
+
+class TSSValidator
+{
     private $error;
 
-    public function validate($tss) {
+    public function validate($tss)
+    {
         $this->error = null;
         $tokens = $this->tokenize($tss);
 
-        foreach ($tokens as $token)
-            if (!$this->validateRule($token)) return false;
+        foreach ($tokens as $token) {
+            if (!$this->validateRule($token)) {
+                return false;
+            }
+        }
 
         return true;
     }
 
-    private function validateRule($token) {
-        if ($token['type'] !== Tokenizer::OPEN_BRACE) return true;
+    private function validateRule($token)
+    {
+        if ($token['type'] !== Tokenizer::OPEN_BRACE) {
+            return true;
+        }
 
         return $this->checkBraces($token) && $this->checkSemicolons($token)
             && $this->checkParenthesis($token);
     }
 
-    private function checkBraces($token) {
+    private function checkBraces($token)
+    {
         return strpos($token['string'], '{') === false;
     }
 
-    private function checkSemicolons($braceToken) {
+    private function checkSemicolons($braceToken)
+    {
         $splitTokens = $braceToken['value']->splitOnToken(Tokenizer::COLON);
-        array_shift($splitTokens); array_pop($splitTokens);
-        foreach ($splitTokens as $tokens)
-            if (!in_array(Tokenizer::SEMI_COLON, array_column(iterator_to_array($tokens), 'type'))) return false;
+        array_shift($splitTokens);
+        array_pop($splitTokens);
+        foreach ($splitTokens as $tokens) {
+            if (!in_array(Tokenizer::SEMI_COLON, array_column(iterator_to_array($tokens), 'type'))) {
+                return false;
+            }
+        }
 
         return true;
     }
 
-    private function checkParenthesis($token) {
+    private function checkParenthesis($token)
+    {
         return substr_count($token['string'], '(') === substr_count($token['string'], ')');
     }
 
-    private function tokenize($tss) {
-        if (is_file($tss)) $tss = file_get_contents($tss);
+    private function tokenize($tss)
+    {
+        if (is_file($tss)) {
+            $tss = file_get_contents($tss);
+        }
         return (new Parser\Tokenizer($tss))->getTokens();
     }
 }

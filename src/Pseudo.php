@@ -4,7 +4,10 @@
  * @copyright       2017 Tom Butler <tom@r.je> | https://r.je/                      *
  * @license         http://www.opensource.org/licenses/bsd-license.php  BSD License *
  * @version         1.2                                                             */
+
 namespace Transphporm;
-interface Pseudo {
-	public function match($name, $args, \DomElement $element);
+
+interface Pseudo
+{
+    public function match($name, $args, \DomElement $element);
 }

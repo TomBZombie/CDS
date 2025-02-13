@@ -4,24 +4,31 @@
  * @copyright       2017 Tom Butler <tom@r.je> | https://r.je/                      *
  * @license         http://www.opensource.org/licenses/bsd-license.php  BSD License *
  * @version         1.2                                                             */
+
 namespace Transphporm;
-class Cache {
-	private $cache;
 
-	public function __construct(\ArrayAccess $cache) {
-		$this->cache = $cache;
-	}
+class Cache
+{
+    private $cache;
 
-	public function write($key, $content) {
-		$this->cache[md5($key)] = ['content' => $content, 'timestamp' => time()];
-		return $content;
-	}
+    public function __construct(\ArrayAccess $cache)
+    {
+        $this->cache = $cache;
+    }
 
-	public function load($key, $modified = 0) {
-		$key = md5($key);
-		if (isset($this->cache[$key]) && $this->cache[$key]['timestamp'] >= $modified) {
-			return $this->cache[$key]['content'];
-		}
-		else return false;
-	}
+    public function write($key, $content)
+    {
+        $this->cache[md5($key)] = ['content' => $content, 'timestamp' => time()];
+        return $content;
+    }
+
+    public function load($key, $modified = 0)
+    {
+        $key = md5($key);
+        if (isset($this->cache[$key]) && $this->cache[$key]['timestamp'] >= $modified) {
+            return $this->cache[$key]['content'];
+        } else {
+            return false;
+        }
+    }
 }

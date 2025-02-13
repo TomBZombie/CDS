@@ -4,56 +4,69 @@
  * @copyright       2017 Tom Butler <tom@r.je> | https://r.je/                      *
  * @license         http://www.opensource.org/licenses/bsd-license.php  BSD License *
  * @version         1.2                                                             */
+
 namespace Transphporm\Hook;
+
 /** Handles format: foo bar properties in the stylesheet */
-class Formatter {
-	private $formatters = [];
+class Formatter
+{
+    private $formatters = [];
 
-	public function register($formatter) {
-		$this->formatters[] = $formatter;
-	}
+    public function register($formatter)
+    {
+        $this->formatters[] = $formatter;
+    }
 
-	public function format($value, $rules) {
-		if (!isset($rules['format'])) return $value;
-		$tokens = $rules['format'];
+    public function format($value, $rules)
+    {
+        if (!isset($rules['format'])) {
+            return $value;
+        }
+        $tokens = $rules['format'];
 
-		$functionName = $tokens->from(\Transphporm\Parser\Tokenizer::NAME, true)->read();
+        $functionName = $tokens->from(\Transphporm\Parser\Tokenizer::NAME, true)->read();
 
-		$options = [];
-		foreach (new \Transphporm\Parser\TokenFilterIterator($tokens->from(\Transphporm\Parser\Tokenizer::NAME),
-					[\Transphporm\Parser\Tokenizer::WHITESPACE]) as $token) {
-			$options[] = $token['value'];
-		}
+        $options = [];
+        foreach (new \Transphporm\Parser\TokenFilterIterator(
+            $tokens->from(\Transphporm\Parser\Tokenizer::NAME),
+            [\Transphporm\Parser\Tokenizer::WHITESPACE]
+        ) as $token) {
+            $options[] = $token['value'];
+        }
 
-		try {
-			return $this->processFormat($options, $functionName, $value);
-		}
-		catch (\Exception $e) {
-			throw new \Transphporm\RunException(\Transphporm\Exception::FORMATTER, $functionName, $e);
-		}
-	}
+        try {
+            return $this->processFormat($options, $functionName, $value);
+        } catch (\Exception $e) {
+            throw new \Transphporm\RunException(\Transphporm\Exception::FORMATTER, $functionName, $e);
+        }
+    }
 
-	public function runOnImmutableElements(): bool {
-		return false;
-	}
+    public function runOnImmutableElements(): bool
+    {
+        return false;
+    }
 
-	//TODO: Abstract all error reporting externally with a method for turning it on/off
-	private function assert($condition, $error) {
-		if (!$condition) throw new \Exception($error);
-	}
+    //TODO: Abstract all error reporting externally with a method for turning it on/off
+    private function assert($condition, $error)
+    {
+        if (!$condition) {
+            throw new \Exception($error);
+        }
+    }
 
-	private function processFormat($format, $functionName, $value) {
-		$functionExists = false;
-		foreach ($value as &$val) {
-			foreach ($this->formatters as $formatter) {
-				if (is_callable([$formatter, $functionName])) {
-					$val = call_user_func_array([$formatter, $functionName], array_merge([$val], $format));
-					$functionExists = true;
-				}
-			}
-		}
+    private function processFormat($format, $functionName, $value)
+    {
+        $functionExists = false;
+        foreach ($value as &$val) {
+            foreach ($this->formatters as $formatter) {
+                if (is_callable([$formatter, $functionName])) {
+                    $val = call_user_func_array([$formatter, $functionName], array_merge([$val], $format));
+                    $functionExists = true;
+                }
+            }
+        }
 
-		$this->assert($functionExists, "Formatter '$functionName' does not exist");
-		return $value;
-	}
+        $this->assert($functionExists, "Formatter '$functionName' does not exist");
+        return $value;
+    }
 }

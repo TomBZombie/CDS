@@ -1,8 +1,11 @@
 <?php
-use Transphporm\TSSValidator;
-class TSSValidatorTest extends PHPUnit_Framework_TestCase {
 
-    public function testMissingClosingBrace() {
+use Transphporm\TSSValidator;
+
+class TSSValidatorTest extends PHPUnit_Framework_TestCase
+{
+    public function testMissingClosingBrace()
+    {
         $tss = "
             div { content: 'Test1';
             span { content: 'Test2'; }
@@ -13,7 +16,8 @@ class TSSValidatorTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($validator->validate($tss));
     }
 
-    public function testMissingSemicolon() {
+    public function testMissingSemicolon()
+    {
         $tss = "
             div {
                 content: 'Test1'
@@ -26,7 +30,8 @@ class TSSValidatorTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($validator->validate($tss));
     }
 
-    public function testValidMissingSemicolon() {
+    public function testValidMissingSemicolon()
+    {
         $tss = "
             div {
                 content: 'Test1';
@@ -39,7 +44,8 @@ class TSSValidatorTest extends PHPUnit_Framework_TestCase {
         $this->assertTrue($validator->validate($tss));
     }
 
-    public function testMissingParenthesis() {
+    public function testMissingParenthesis()
+    {
         $tss = "
             div {
                 content: data(attr(test);
@@ -51,7 +57,8 @@ class TSSValidatorTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($validator->validate($tss));
     }
 
-    public function testValidTSS() {
+    public function testValidTSS()
+    {
         $tss = "
             div { content: data(attr(test)); }
             span { content: 'Test2'; }
@@ -62,5 +69,4 @@ class TSSValidatorTest extends PHPUnit_Framework_TestCase {
 
         $this->assertTrue($validator->validate($tss));
     }
-
 }
